@@ -1,16 +1,15 @@
 import { useState } from "react";
 import "./App.css";
+import { useEffect } from "react";
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "First",
-      content: "My first post",
-    },
-    { id: 2, title: "Second", content: "My Second post" },
-    { id: 3, title: "Third", content: "My third post" },
-  ]);
+  const [posts, setPosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
 
   return (
     <>
@@ -21,6 +20,18 @@ function App() {
         onSubmit={(e) => {
           e.preventDefault();
           // Grab values and log them out
+          const title = e.target.title.value;
+          const content = e.target.content.value;
+          console.log(title, content);
+
+          setPosts([
+            ...posts,
+            {
+              id: posts.length ? posts[posts.length - 1].id + 1 : 1,
+              title: title,
+              content: content,
+            },
+          ]);
         }}
       >
         <label htmlFor="title">Title</label>
@@ -35,14 +46,16 @@ function App() {
         </button>
       </form>
       <div className="flex flex-col items-center gap-4">
-        {posts.map((post) => {
-          return (
-            <div className="border p-4" key={post.id}>
-              <h2>{post.title}</h2>
-              <p>{post.content}</p>
-            </div>
-          );
-        })}
+        {posts
+          .map((post) => {
+            return (
+              <div className="border p-4" key={post.id}>
+                <h2>{post.title}</h2>
+                <p>{post.content}</p>
+              </div>
+            );
+          })
+          .reverse()}
       </div>
     </>
   );
