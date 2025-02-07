@@ -17,7 +17,7 @@ function App() {
       setData(data.results);
     }
     getData();
-  }, [url]); // ✅ Added dependency so URL updates trigger data fetch
+  }, [url]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-8">
