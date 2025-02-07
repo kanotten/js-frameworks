@@ -20,46 +20,53 @@ function App() {
   }, [url]); // ✅ Added dependency so URL updates trigger data fetch
 
   return (
-    <>
-      <h1 className="text-3xl font-bold text-orange-500">Pokédex</h1>
+    <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-8">
+      <h1 className="text-4xl font-extrabold text-orange-500 mb-6">Pokédex</h1>
 
-      {data.map((pokemon, index) => (
-        <h2 key={index}>{pokemon.name}</h2>
-      ))}
+      <ul className="bg-gray-800 shadow-lg rounded-lg w-full max-w-md p-4 space-y-2">
+        {data.map((pokemon, index) => (
+          <li
+            key={index}
+            className="text-lg font-semibold text-center bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition"
+          >
+            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          </li>
+        ))}
+      </ul>
 
-      <div>
+      <div className="flex justify-between w-full max-w-md mt-6">
         {previousUrl ? (
           <button
             onClick={() => setUrl(previousUrl)}
-            className="border p-2 cursor-pointer"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition"
           >
-            prev
+            Prev
           </button>
         ) : (
           <button
             disabled
-            className="border p-2 bg-neutral-600 cursor-not-allowed"
+            className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded-md shadow-md cursor-not-allowed"
           >
-            prev
+            Prev
           </button>
         )}
         {nextUrl ? (
           <button
             onClick={() => setUrl(nextUrl)}
-            className="border p-2 cursor-pointer"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition"
           >
-            next
+            Next
           </button>
         ) : (
           <button
             disabled
-            className="border p-2 bg-neutral-600 cursor-not-allowed"
+            className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded-md shadow-md cursor-not-allowed"
           >
-            next
+            Next
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
