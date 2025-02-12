@@ -5,7 +5,7 @@ export function Pokemon() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [isLoading, setLoading] = useState(true);
   const { name } = useParams();
-
+  const [moveFilter, setMoveFilter] = useState("");
   type Pokemon = {
     abilites: [
       {
@@ -53,11 +53,19 @@ export function Pokemon() {
                 alt={name}
               />
               <div>
-                <input type="text" className="border" />
+                <input
+                  type="text"
+                  className="border"
+                  onChange={(e) => {
+                    setMoveFilter(e.target.value);
+                  }}
+                />
                 {/* Log out the values typed in the field*/}
-                {pokemon.moves.map(({ move }) => {
-                  return <p key={move.name}>{move.name}</p>;
-                })}
+                {pokemon.moves
+                  .filter(({ move }) => move.name.includes(moveFilter))
+                  .map(({ move }) => {
+                    return <p key={move.name}>{move.name}</p>;
+                  })}
               </div>
             </>
           )}
