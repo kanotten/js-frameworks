@@ -63,9 +63,9 @@ export function Pokemon() {
                 {/* Log out the values typed in the field*/}
                 {pokemon.moves
                   .filter(({ move }) => move.name.includes(moveFilter))
-                  .map(({ move }) => {
-                    return <p key={move.name}>{move.name}</p>;
-                  })}
+                  .map(({ move }) => (
+                    <p key={move.name}>{move.name}</p>
+                  ))}
               </div>
             </>
           )}
