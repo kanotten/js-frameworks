@@ -8,6 +8,7 @@ function App() {
     { name: "thrid test" },
   ];
   const [items, setItems] = useState(arr);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("test", JSON.stringify(items));
@@ -20,7 +21,9 @@ function App() {
       <button
         onClick={() => {
           const newItem = { name: "from button" };
-          setItems([...items, newItem]);
+          items.push(newItem);
+          console.log(items);
+          setUpdate(!update);
         }}
       >
         Add
